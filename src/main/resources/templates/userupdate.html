@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body th:bgcolor="ghostwhite" th:align="center">
+<br/>
+<div class="center">
+    <h2>User info</h2>
+    <form th:action="@{/users/add}" th:method="POST" th:object="${user}">
+        <label for="name">Name:</label>
+        <input id="name" type="text" th:field="*{name}" th:value="${user.name}"/>
+        <br>
+        <br>
+        <label for="age">Age:</label>
+        <input id="age" type="text" th:field="*{age}" th:value="${user.age}"/>
+        <br>
+        <br>
+        <label for="email">Email:</label>
+        <input id="email" type="text" th:field="*{email}" th:value="${user.email}"/>
+        <br>
+        <br>
+        <input type="submit" value="Update user profile">
+    </form>
+</div>
+</body>
+</html>

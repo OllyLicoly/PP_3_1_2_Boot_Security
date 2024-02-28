@@ -18,7 +18,7 @@ public class UsersController {
 
     @GetMapping("/authenticated")
     public String authenticatedUserPage(){
-        return "Welcome in!";
+        return "user";
     }
 
 

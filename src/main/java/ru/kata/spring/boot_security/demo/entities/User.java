@@ -1,12 +1,14 @@
 package ru.kata.spring.boot_security.demo.entities;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -14,10 +16,10 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+//    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "user_name")
+    @Column(name = "name")
     private String username;
 
     @Column(name="password")
@@ -29,30 +31,41 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+//    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id")
+//    )
     private Set<Role> roles;
 
 
     public User() {    }
 
-    public User(String username, int age, String email) {
+    public User(String username, String password, int age, String email, Set<Role> roles) {
         this.username = username;
+        this.password = password;
         this.age = age;
         this.email = email;
+        this.roles = roles;
     }
 
     public Long getId() {
         return id;
     }
 
-    @Override
-    public String getUsername() { return username; }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
+    public String getUsername() { return username; }
+    public void setUsername(String name) {
+        this.username = name;
+    }
     public String getPassword() { return password; }
+
 
     public void setPassword(String password) { this.password = password; }
 
@@ -95,8 +108,13 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
     }
+
+//        @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
+//    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -117,4 +135,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

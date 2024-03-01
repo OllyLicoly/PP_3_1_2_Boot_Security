@@ -6,7 +6,7 @@
 </head>
 <body>
 <br/>
-<h2 th:align="center">Users</h2>
+<h2 th:align="center">User profile</h2>
 <br/>
 <div>
     <table th:bgcolor="ghostwhite" th:align="center" th:cellpadding="10" border="1">
@@ -17,23 +17,16 @@
             <th>Age</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Manage user</th>
         </tr>
-        <tr th:each ="user : ${users}">
-            <td th:text ="${user.username}"></td>
-            <td th:text="${user.password}"></td>
-            <td th:text ="${user.age}"></td>
-            <td th:text ="${user.email}"></td>
+        <tr>
+            <td th:text ="${user.getUsername()}"></td>
+            <td th:text ="${user.getPassword()}"></td>
+            <td th:text ="${user.getAge()}"></td>
+            <td th:text ="${user.getEmail()}"></td>
             <td th:each ="role : ${user.roles}" th:text="${role.role}"></td>
-            <td><a th:href="@{/admin/delete(id=${user.id})}">delete</a>
-                <a th:href="@{/admin/update(id=${user.id})}">update</a>
-            </td>
         </tr>
         </tbody>
     </table>
-    <h4 th:align="center">
-        <a th:href="@{/admin/add}">Add new user</a>
-    </h4>
     <h3 th:align="center">
         <a href="/logout">Logout</a>
     </h3>

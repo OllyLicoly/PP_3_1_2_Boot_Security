@@ -8,9 +8,13 @@
 <br/>
 <div class="center">
     <h2 th:align="center">Add new user</h2>
-    <form th:action="@{/users/add}" th:method="POST" th:object="${user}">
+    <form th:action="@{/admin/add}" th:method="POST" th:object="${user}">
         <label for="name">Name:</label>
-        <input id="name" type="text" th:field="*{name}"/>
+        <input id="name" type="text" th:field="*{username}"/>
+        <br>
+        <br>
+        <label for="password">Password:</label>
+        <input id="password" type="text" th:field="*{password}"/>
         <br>
         <br>
         <label for="age">Age:</label>
@@ -19,6 +23,12 @@
         <br>
         <label for="email">Email:</label>
         <input id="email" type="text" th:field="*{email}"/>
+        <br>
+        <br>
+        <label for="role">Role:</label>
+        <select id="role" th:name="role" th:value="*{roles}">
+            <option th:each="role:${roles}" th:value="${role.id}" th:text="${role.role}" selected/>
+        </select>
         <br>
         <br>
         <input type="submit" value="Save new user">

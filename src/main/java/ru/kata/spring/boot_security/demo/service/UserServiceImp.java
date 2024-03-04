@@ -13,15 +13,15 @@ import java.util.List;
 @Transactional
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
-    private final RoleServiceImp roleServiceImp;
+    private final RoleServiceImp roleService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImp(UserRepository userRepository,
-                          RoleServiceImp roleServiceImp,
+                          RoleServiceImp roleService,
                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleServiceImp = roleServiceImp;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 

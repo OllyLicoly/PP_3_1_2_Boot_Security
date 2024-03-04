@@ -8,7 +8,7 @@
 <br/>
 <div class="center">
     <h2>User info</h2>
-    <form th:action="@{/admin/update}" th:method="POST" th:object="${user}">
+    <form th:action="@{/admin/update(id=${user.getId()})}" th:method="POST" th:object="${user}">
         <label for="name">Name:</label>
         <input id="name" type="text" th:field="*{username}" th:value="${user.username}"/>
         <br>

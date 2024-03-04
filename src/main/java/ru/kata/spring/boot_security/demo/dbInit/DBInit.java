@@ -29,9 +29,9 @@ public class DBInit {
         roleService.addRole(adminRole);
         roleService.addRole(userRole);
 
-        userService.addUser(new User("admin", "123", 22, "admin@mail.ru", Set.of(adminRole)));
+        userService.saveUser(new User("admin", "123", 22, "admin@mail.ru", Set.of(adminRole)));
 
-        userService.addUser(new User("user1", "456", 23, "user1@mail.ru", Set.of(userRole)));
+        userService.saveUser(new User("user1", "456", 23, "user1@mail.ru", Set.of(userRole)));
 
 
     }

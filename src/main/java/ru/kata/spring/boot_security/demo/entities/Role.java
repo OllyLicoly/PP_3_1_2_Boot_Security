@@ -1,15 +1,13 @@
 package ru.kata.spring.boot_security.demo.entities;
 
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +17,8 @@ public class Role {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private Set<User> users;
 
     public Role() {  }
 
@@ -42,6 +40,10 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getAuthority(){
+        return getRole();
     }
 
     @Override

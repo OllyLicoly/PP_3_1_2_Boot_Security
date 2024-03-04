@@ -10,9 +10,11 @@ public interface RoleService {
 
     Role findRoleById(Long id);
 
-    void editRoleById(Role role);
-
-    void removeRoleById(Long id);
+//    void editRoleById(Role role);
+//
+//    void removeRoleById(Long id);
 
     List<Role> getAllRoles();
+
+
 }

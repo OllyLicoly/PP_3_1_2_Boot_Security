@@ -42,49 +42,23 @@ public class AdminsController {
 
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id) {
-        userService.removeUserById(id);
+        userService.deleteUserById(id);
         return "redirect:/admin";
     }
 
     @GetMapping("/update")
     public String updateUser(@RequestParam("id") Long id, Model model ){
-        User user = userService.findUserById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "userupdate";
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute("user") User user,
-                             BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("user", user);
-            model.addAttribute("roles", roleService.getAllRoles());
-            return "userupdate";
-        }
-        user.setPassword(user.getPassword());userService.editUserById(user);
+    public String updateUser(@ModelAttribute(value = "user") User user
+                             ) {
+        userService.updateUser(user);
         return "redirect:/admin";
     }
-
-//    @GetMapping("/admin/edit")
-//    public String editUserById(@RequestParam(value = "id") Long id, Model model) {
-//        model.addAttribute("user", userService.findUserById(id));
-//        model.addAttribute("roles", roleService.getListOfRoles());
-//        return "edit";
-//    }
-//
-//    @PostMapping("/admin/save")
-//    public String saveUser(@ModelAttribute("user") @Valid User user,
-//                           BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("user", user);
-//            model.addAttribute("roles", roleService.getListOfRoles());
-//            return "edit";
-//        }
-//        user.setPassword(user.getPassword());
-//        userService.editUserById(user);
-//        return "redirect:/admin";
-//    }
 
     @GetMapping("/add")
     public String addUser(Model model){
@@ -94,35 +68,8 @@ public class AdminsController {
     }
 
     @PostMapping("/add")
-    public String addNewUser(@ModelAttribute("user") User user,
-                             BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("user", user);
-            model.addAttribute("roles", roleService.getAllRoles());
-            return "useradd";
-        }
-        user.setPassword(user.getPassword());
-        userService.addUser(user);
+    public String addNewUser(@ModelAttribute(value = "user") User user) {
+        userService.saveUser(user);
         return "redirect:/admin";
     }
-
-//    @GetMapping("/admin/new")
-//    public String createUserFrom(Model model) {
-//        model.addAttribute("user", new User());
-//        model.addAttribute("roles", roleService.getListOfRoles());
-//        return "new";
-//    }
-//
-//    @PostMapping("/admin/addUser")
-//    public String addUser(@ModelAttribute("user") @Valid User user,
-//                          BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("user", user);
-//            model.addAttribute("roles", roleService.getListOfRoles());
-//            return "new";
-//        }
-//        user.setPassword(user.getPassword());
-//        userService.addUser(user);
-//        return "redirect:/admin";
-//    }
 }

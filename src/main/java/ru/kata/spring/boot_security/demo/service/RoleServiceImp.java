@@ -20,9 +20,9 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
+    @Transactional
     public void addRole(Role role) {
         roleRepository.save(role);
-
     }
 
     @Override
@@ -31,15 +31,15 @@ public class RoleServiceImp implements RoleService {
         return roleRepository.getById(id);
     }
 
-    @Override
-    public void editRoleById(Role role) {
-        roleRepository.save(role);
-    }
-
-    @Override
-    public void removeRoleById(Long id) {
-        roleRepository.getById(id);
-    }
+//    @Override
+//    public void editRoleById(Role role) {
+//        roleRepository.save(role);
+//    }
+//
+//    @Override
+//    public void removeRoleById(Long id) {
+//        roleRepository.getById(id);
+//    }
 
     @Override
     @Transactional(readOnly = true)

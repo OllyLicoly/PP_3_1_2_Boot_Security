@@ -4,16 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
-//import javax.validation.Valid;
 
-//@Controller
-//@RequestMapping(value = "/users")
 @Controller
 @RequestMapping("/admin")
 public class AdminsController {
@@ -27,16 +23,9 @@ public class AdminsController {
         this.roleService = roleService;
     }
 
-//    @GetMapping(value = "")
-//    public String authenticatedUserPage(){
-//        return "user";
-//    }
-
-
     @GetMapping(value = "")
     public String printUsers(ModelMap model) {
         model.addAttribute("users", userService.getAllUsers());
-
         return "users";
     }
 
@@ -54,8 +43,11 @@ public class AdminsController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute(value = "user") User user
-                             ) {
+    public String updateUser(@ModelAttribute("user") User user,
+                             Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roleService.getAllRoles());
+        user.setPassword(user.getPassword());
         userService.updateUser(user);
         return "redirect:/admin";
     }
@@ -68,7 +60,11 @@ public class AdminsController {
     }
 
     @PostMapping("/add")
-    public String addNewUser(@ModelAttribute(value = "user") User user) {
+    public String addNewUser(@ModelAttribute("user") User user,
+                             Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roleService.getAllRoles());
+        user.setPassword(user.getPassword());
         userService.saveUser(user);
         return "redirect:/admin";
     }

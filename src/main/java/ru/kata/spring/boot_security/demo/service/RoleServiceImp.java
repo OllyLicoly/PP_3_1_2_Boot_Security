@@ -20,30 +20,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
-    @Transactional
-    public void addRole(Role role) {
-        roleRepository.save(role);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Role findRoleById(Long id) {
-        return roleRepository.getById(id);
-    }
-
-//    @Override
-//    public void editRoleById(Role role) {
-//        roleRepository.save(role);
-//    }
-//
-//    @Override
-//    public void removeRoleById(Long id) {
-//        roleRepository.getById(id);
-//    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void saveRole(Role role) {
+        roleRepository.save(role);
     }
 }

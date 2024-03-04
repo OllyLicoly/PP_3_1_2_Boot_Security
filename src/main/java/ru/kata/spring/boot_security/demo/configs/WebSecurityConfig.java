@@ -42,14 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index").permitAll()
 //                .antMatchers("/user").hasRole("USER")
 //                .antMatchers("/admin/**", "/user").hasRole("ADMIN")
-                .antMatchers("/admin", "/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user", "/user/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/user", "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .loginPage("/login")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
@@ -63,17 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-//      @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider() {
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(userService);
-//        return daoAuthenticationProvider;
-//    }
-
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder authMB) throws Exception {
 
@@ -81,23 +67,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 username -> Optional.of(userService.loadUserByUsername(username))
                         .orElseThrow(() -> new UsernameNotFoundException("UserNotFound"))
         ).passwordEncoder(bCryptPasswordEncoder());
-
-//        authMB.authenticationProvider(daoAuthenticationProvider());
-
-//        authMB.userDetailsService(userService);
     }
-
-//     аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 }

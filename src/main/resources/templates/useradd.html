@@ -25,10 +25,14 @@
         <input id="email" type="text" th:field="*{email}"/>
         <br>
         <br>
-        <label for="role">Role:</label>
-        <select id="role" th:name="role" th:value="*{roles}">
-            <option th:each="role:${roles}" th:value="${role.id}" th:text="${role.role}" selected/>
-        </select>
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${roles}"
+                   th:field="*{roles}"
+                   th:text="${role.role}"
+                   th:value="${role.id}"
+            />
+        </label>
         <br>
         <br>
         <input type="submit" value="Save new user">

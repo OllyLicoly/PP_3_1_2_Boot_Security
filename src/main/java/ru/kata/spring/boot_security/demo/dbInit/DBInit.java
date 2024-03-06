@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import java.util.Set;
 
 @Component

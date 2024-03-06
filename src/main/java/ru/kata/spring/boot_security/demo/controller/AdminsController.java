@@ -13,10 +13,6 @@ import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
-
-
 @Controller
 @RequestMapping("/admin")
 public class AdminsController {

@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import java.util.Set;
 
 @Component
@@ -33,7 +34,7 @@ public class DBInit {
         Role adminRole = new Role("ROLE_ADMIN");
         roleService.saveRole(adminRole);
 
-        userRepository.save(new User("admin", passwordEncoder.encode("123"), 22, "admin@mail.ru", Set.of(adminRole)));
-        userRepository.save(new User("user1", passwordEncoder.encode("456"), 23, "user1@mail.ru", Set.of(userRole)));
+        userRepository.saveUser(new User("admin", passwordEncoder.encode("123"), 22, "admin@mail.ru", Set.of(adminRole)));
+        userRepository.saveUser(new User("user1", passwordEncoder.encode("456"), 23, "user1@mail.ru", Set.of(userRole)));
     }
 }

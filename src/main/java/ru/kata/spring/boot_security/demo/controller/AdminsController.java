@@ -13,6 +13,9 @@ import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -39,12 +42,14 @@ public class AdminsController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/update")
     public String updateUser(@RequestParam("id") Long id, Model model ){
         model.addAttribute("user", userService.findUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "userupdate";
     }
+
 
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user,

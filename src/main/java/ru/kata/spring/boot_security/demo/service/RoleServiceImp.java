@@ -22,12 +22,14 @@ public class RoleServiceImp implements RoleService {
     @Override
     @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
+//        return roleRepository.getAllRoles();
         return roleRepository.findAll();
     }
 
     @Override
     @Transactional
     public void saveRole(Role role) {
+//        roleRepository.saveRole(role);
         roleRepository.save(role);
     }
 }

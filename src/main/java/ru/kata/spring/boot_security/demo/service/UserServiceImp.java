@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Service
@@ -29,13 +31,13 @@ public class UserServiceImp implements UserService {
     @Transactional
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userRepository.saveUser(user);
     }
 
     @Override
     @Transactional
     public User findUserById(Long id) {
-        return userRepository.getById(id);
+        return userRepository.findUserById(id);
     }
 
     @Override
@@ -45,19 +47,21 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
+
     public void updateUser(User user) {
-        userRepository.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.saveUser(user);
     }
 
     @Override
     @Transactional
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+        userRepository.deleteUserById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.getAllUsers();
     }
 
 }

@@ -51,11 +51,11 @@ public class Role{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
-        return Objects.equals(id, role1.getId()) && Objects.equals(role, role1.role);
+        return Objects.equals(getId(), role1.getId()) && Objects.equals(getRole(), role1.getRole()) && Objects.equals(users, role1.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role);
+        return Objects.hash(getId(), getRole(), users);
     }
 }

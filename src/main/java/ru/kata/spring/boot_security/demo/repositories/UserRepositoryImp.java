@@ -41,8 +41,7 @@ public class UserRepositoryImp implements UserRepository{
 
     @Override
     public void deleteUserById(Long id) {
-        manager.createQuery ("delete from User " +
-                "where id=:userID")
+        manager.createQuery ("delete from User " + "where id=:userID")
                 .setParameter("userID", id).executeUpdate();
     }
 }

@@ -4,14 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
+
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -49,9 +53,9 @@ public class AdminsController {
 
     @PostMapping("/update")
     public String updateUser(@ModelAttribute("user") User user,
-                             Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.getAllRoles());
+                             @RequestParam("roles") Set<Long> rolesId) {
+        Set<Role> roles = roleService.findById(rolesId);
+        user.setRoles(roles);
         user.setPassword(user.getPassword());
         userService.updateUser(user);
         return "redirect:/admin";
@@ -66,9 +70,9 @@ public class AdminsController {
 
     @PostMapping("/add")
     public String addNewUser(@ModelAttribute("user") User user,
-                             Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.getAllRoles());
+                             @RequestParam("roles") Set<Long> rolesId) {
+        Set<Role> roles = roleService.findById(rolesId);
+        user.setRoles(roles);
         user.setPassword(user.getPassword());
         userService.saveUser(user);
         return "redirect:/admin";

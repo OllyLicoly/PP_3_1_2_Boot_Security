@@ -4,15 +4,17 @@ import java.util.List;
 
 public interface UserService {
 
-    void saveUser(User user);
+    List<User> getAllUsers();
 
     User findUserById(Long id);
 
     User findUserByUsername(String username);
 
+    void saveUser(User user);
+
     void updateUser(User user);
 
     void deleteUserById(Long id);
 
-    List<User> getAllUsers();
+
 }

@@ -1,15 +1,16 @@
 package ru.kata.spring.boot_security.demo.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.entities.Role;
 
-//public interface RoleRepository {
-@Repository
-    public interface RoleRepository extends JpaRepository<Role, Long> {
+import java.util.List;
+import java.util.Set;
 
-//    List<Role> getAllRoles();
-//
-//    void saveRole(Role role);
+public interface RoleRepository {
+
+    List<Role> getAllRoles();
+
+    Set<Role> findById(Set<Long> rolesId);
+
+    void saveRole(Role role);
 
 }

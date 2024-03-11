@@ -28,9 +28,9 @@
         <label>Roles:
             <input type="checkbox" name="roles"
                    th:each="role : ${roles}"
-                   th:text="${role.role}"
                    th:value="${role.id}"
-                   th:field="*{roles}"
+                   th:text="${role.role}"
+                   th:checked="${#lists.contains(user.roles, role)}"
             />
         </label>
         <br>

@@ -31,11 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-//                .antMatchers("/user").hasRole("USER")
-//                .antMatchers("/admin/**", "/user").hasRole("ADMIN")
-                .antMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/user", "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/", "/index")
+                .permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -54,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder authMB) throws Exception {
-
         authMB.userDetailsService(
                 username -> Optional.of(userService.loadUserByUsername(username))
                         .orElseThrow(() -> new UsernameNotFoundException("UserNotFound"))

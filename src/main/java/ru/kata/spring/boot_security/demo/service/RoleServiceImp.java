@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -22,14 +23,17 @@ public class RoleServiceImp implements RoleService {
     @Override
     @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
-//        return roleRepository.getAllRoles();
-        return roleRepository.findAll();
+        return roleRepository.getAllRoles();
+    }
+
+    public Set<Role> findById(Set<Long> rolesId) {
+        return roleRepository.findById(rolesId);
     }
 
     @Override
     @Transactional
     public void saveRole(Role role) {
-//        roleRepository.saveRole(role);
-        roleRepository.save(role);
+        roleRepository.saveRole(role);
     }
+
 }

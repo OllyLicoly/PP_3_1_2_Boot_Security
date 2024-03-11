@@ -26,10 +26,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    @Transactional
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.saveUser(user);
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
     }
 
     @Override
@@ -45,7 +43,13 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
+    public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.saveUser(user);
+    }
 
+    @Override
+    @Transactional
     public void updateUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.saveUser(user);
@@ -55,11 +59,6 @@ public class UserServiceImp implements UserService {
     @Transactional
     public void deleteUserById(Long id) {
         userRepository.deleteUserById(id);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
     }
 
 }

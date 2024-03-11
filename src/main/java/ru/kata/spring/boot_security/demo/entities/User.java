@@ -1,5 +1,8 @@
 package ru.kata.spring.boot_security.demo.entities;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,6 +37,7 @@ public class User {
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade(CascadeType.MERGE)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -51,6 +55,7 @@ public class User {
         this.email = email;
         this.roles = roles;
     }
+
 
     public Long getId() {
         return id;
@@ -94,12 +99,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return age == user.age && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email);
+        return getAge() == user.getAge() && Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getRoles(), user.getRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, age, email);
+        return Objects.hash(getId(), getUsername(), getPassword(), getAge(), getEmail(), getRoles());
     }
-
 }

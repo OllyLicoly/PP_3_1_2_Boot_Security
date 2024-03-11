@@ -21,11 +21,11 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminsController {
 
-    private final UserServiceImp userService;
-    private final RoleServiceImp roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public AdminsController(UserServiceImp userService, RoleServiceImp roleService) {
+    public AdminsController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
